@@ -33,6 +33,21 @@ class TodoController extends Controller
         // $todos = Todo::latest()->get();
         // return view('todo.index')->with('todos',$todos);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fetchTodo()
+    {
+
+        $user_id=auth()->user()->id;
+        $user= User::find($user_id);
+        return ($user->todos);
+
+        // $todos = Todo::latest()->get();
+        // return view('todo.index')->with('todos',$todos);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -89,11 +104,14 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        if(auth()->user()->id !=$todo->id)
+        if(auth()->user()->id != $todo->user_id)
         {
-            return redirect(route('todo.index'));
+            return redirect(route('todo.index'));    
         }
-        return view('todo.edit')->with('todo',$todo);
+        else{
+            return view('todo.edit')->with('todo',$todo);
+        }
+         
     }
 
     /**
