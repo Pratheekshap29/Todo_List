@@ -30,21 +30,9 @@ headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 }
 });
-var allEvents;
-$.get(SITEURL+'/fetch', (res) => {allEvents = res; 
-var alteredEvents = []
-allEvents.forEach((todo) => {
-  var newTodo = {
-    start: todo.startTime,
-    end: todo.endTime,
-    allDay: true,
-    title: todo.title,
-  }
-  alteredEvents.push(newTodo);
-})
 var calendar = $('#calendar').fullCalendar({ 
 editable: true,
-events: alteredEvents,
+events: [],
 displayEventTime: true,
 editable: true,
 eventRender: function (todo, element, view) {
@@ -114,8 +102,20 @@ displayMessage("Deleted Successfully");
 }
 }
 });
-});
+var allEvents;
+$.get(SITEURL+'/fetch', (res) => {allEvents = res; 
 
+allEvents.forEach((todo) => {
+  var newTodo = {
+    start: todo.startTime,
+    end: todo.endTime,
+    allDay: true,
+    title: todo.title,
+  }
+
+calendar.fullCalendar( 'renderEvent', newTodo );
+})
+});
 });
 function displayMessage(message) {
 $(".response").html("<div class='success'>"+message+"</div>");
