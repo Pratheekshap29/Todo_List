@@ -15,10 +15,13 @@
                     @endif
 
                         <a class="btn btn-lg btn-primary" href="{{ route('todo.index') }}">Create your todo</a>
-                        {{-- <a class="btn btn-lg btn-primary" href="{{ route('todo.fullcalendar') }}">Calender View</a> --}}
+                        <a class="btn btn-lg btn-primary" href="{{ url('fullcalendar') }}">Calender View</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+
+
+</div>
+</div>
