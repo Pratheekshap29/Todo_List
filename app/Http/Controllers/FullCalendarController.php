@@ -26,32 +26,32 @@ class FullCalendarController extends Controller
    
     public function create(Request $request)
     {  
-        $insertArr = [ 'title' => $request->title,
-                        'completed'=>0,
-                       'startTime' => $request->startTime,
-                       'endTime' => $request->endTime,
-                       'user_id'=>auth()->user()->id
-                    ];
-        $todo = Todo::insert($insertArr);   
-        return Response::json($todo);
+        // $insertArr = [ 'title' => $request->title,
+        //                 'completed'=>0,
+        //                'startTime' => $request->startTime,
+        //                'endTime' => $request->endTime,
+        //                'user_id'=>auth()->user()->id
+        //             ];
+        // $todo = Todo::insert($insertArr);   
+        // return Response::json($todo);
     }
      
  
     public function update(Request $request)
     {   
-        $where = array('id' => $request->id);
-        $updateArr = ['title' => $request->title,'startTime' => $request->startTime, 'endTime' => $request->endTime];
-        $todo  = Todo::where($where)->update($updateArr);
+        // $where = array('id' => $request->id);
+        // $updateArr = ['title' => $request->title,'startTime' => $request->startTime, 'endTime' => $request->endTime];
+        // $todo  = Todo::where($where)->update($updateArr);
  
-        return Response::json($todo);
+        // return Response::json($todo);
     } 
  
  
     public function destroy(Request $request)
     {
-        $todo = Todo::where('id',$request->id)->delete();
+        // $todo = Todo::where('id',$request->id)->delete();
    
-        return Response::json($todo);
+        // return Response::json($todo);
     }    
  
  

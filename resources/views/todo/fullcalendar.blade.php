@@ -30,96 +30,24 @@ headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 }
 });
-var calendar = $('#calendar').fullCalendar({ 
-editable: true,
-events: [],
-displayEventTime: true,
-editable: true,
-eventRender: function (todo, element, view) {
-if (todo.allDay === 'true') {
-todo.allDay = true;
-} else {
-todo.allDay = false;
-}
-},
-selectable: true,
-selectHelper: true,
-select: function (startTime, endTime, allDay) {
-var title = prompt('Event Title:');
-if (title) {
-var startTime = $.fullCalendar.formatDate(startTime, "Y-MM-DD HH:mm:ss");
-var endTime = $.fullCalendar.formatDate(endTime, "Y-MM-DD HH:mm:ss");
-$.ajax({
-url: SITEURL + "fetch",
-data: 'title=' + title + '&amp;startTime=' + startTime + '&amp;endTime=' + endTime,
-type: "POST",
-success: function (data) {
-displayMessage("Added Successfully");
-},
-error: function (err) {
-    var error=err;
-    console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
-  }
-});
-calendar.fullCalendar('renderEvent',
-{
-title: title,
-start: startTime,
-end: endTime,
-allDay: allDay
-},
-true
-);
-}
-calendar.fullCalendar('unselect');
-},
-eventDrop: function (todo, delta) {
-var startTime = $.fullCalendar.formatDate(todo.startTime, "Y-MM-DD HH:mm:ss");
-var endTime = $.fullCalendar.formatDate(todo.endTime, "Y-MM-DD HH:mm:ss");
-$.ajax({
-url: SITEURL + 'fullcalendar/update',
-data: 'title=' + todo.title + '&amp;startTime=' + startTime + '&amp;endTime=' + endTime + '&amp;id=' + todo.id,
-type: "POST",
-success: function (response) {
-displayMessage("Updated Successfully");
-}
-});
-},
-eventClick: function (todo) {
-var deleteMsg = confirm("Do you really want to delete?");
-if (deleteMsg) {
-$.ajax({
-type: "POST",
-url: SITEURL + 'fullcalendar/delete',
-data: "&amp;id=" + todo.id,
-success: function (response) {
-if(parseInt(response) > 0) {
-$('#calendar').fullCalendar('removeEvents', todo.id);
-displayMessage("Deleted Successfully");
-}
-}
-});
-}
-}
-});
 var allEvents;
 $.get(SITEURL+'/fetch', (res) => {allEvents = res; 
-
+var alteredEvents = []
 allEvents.forEach((todo) => {
   var newTodo = {
     start: todo.startTime,
     end: todo.endTime,
-    allDay: true,
     title: todo.title,
   }
-
-calendar.fullCalendar( 'renderEvent', newTodo );
+  alteredEvents.push(newTodo);
 })
+var calendar = $('#calendar').fullCalendar({ 
+editable: false,
+events: alteredEvents,
+displayEventTime: true,
 });
 });
-function displayMessage(message) {
-$(".response").html("<div class='success'>"+message+"</div>");
-setInterval(function() { $(".success").fadeOut(); }, 1000);
-}
+
+});
 </script>
 </html>
