@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Todo;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,17 @@ class HomeController extends Controller
     {
         $user_id=auth()->user()->id;
         $user= User::find($user_id);
-        return view('home')->with('todos',$user->todos);
+        $todos=$user->todos;
+        $todos= $todos->sortByDesc('startTime');
+        // $todos->all();
+        return view('home')->with('todos',$todos);
     }
+    
+    // public function update(Request $request, Todo $todo)
+    // {
+    //     $todo->update($request->all());
+    //     // $todo->save();
+    //     return redirect(route('home'));
+    // }
+
 }

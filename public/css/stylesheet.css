@@ -1,0 +1,13 @@
+body{
+    background-image: url(../images/bg1.jpg);
+}
+table,th,td{
+    border: 2px solid black;
+}
+.fc-day-grid-event{
+    height:50px;
+}
+.fc-day-grid-event .fc-content{
+    display: flex;
+    flex-direction: column;
+}

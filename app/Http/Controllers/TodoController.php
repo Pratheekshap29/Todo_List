@@ -29,9 +29,6 @@ class TodoController extends Controller
         $user_id=auth()->user()->id;
         $user= User::find($user_id);
         return view('todo.index')->with('todos',$user->todos);
-
-        // $todos = Todo::latest()->get();
-        // return view('todo.index')->with('todos',$todos);
     }
     /**
      * Display a listing of the resource.
@@ -44,9 +41,6 @@ class TodoController extends Controller
         $user_id=auth()->user()->id;
         $user= User::find($user_id);
         return ($user->todos);
-
-        // $todos = Todo::latest()->get();
-        // return view('todo.index')->with('todos',$todos);
     }
 
     /**
@@ -80,7 +74,6 @@ class TodoController extends Controller
             'startTime'=>$request->startTime,
             'endTime'=>$dt->addHour(),
             'user_id'=>auth()->user()->id
-            // 'endTime'=>date("Y-m-d H:i:s", strtotime( $request->startTime,'+3600'))
         ]);
         return redirect(route('todo.index'));
     }

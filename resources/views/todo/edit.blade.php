@@ -2,8 +2,9 @@
 
 @section('content')
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid bg-dark text-white">
   <div class="container">
+  <a class="btn btn-primary mb-4" href="{{ route('todo.index') }}">Go Back</a>
 
     <h2 class="display-4 ">Edit your Todo:</h2>
     <form action="{{route('todo.update',$todo->id)}}" method="POST">
@@ -31,6 +32,7 @@
             </div>
         </div>
     </form>
+    
   </div>
 </div>
 

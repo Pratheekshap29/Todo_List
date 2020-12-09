@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid bg-dark text-white">
   <div class="container">
     <h1 class="display-4 ">Todo List</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+    <p class="lead">What are you waiting for?...create your todo now!!</p>
 
     <form action="{{route('todo.store')}}" method="POST">
     @csrf
